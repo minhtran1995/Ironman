@@ -33,6 +33,7 @@ var objects;
                 Player.flag = false;
             };
             window.onmousedown = function () {
+                console.log("Shoot");
                 Player.flag = true;
             };
             if (Player.flag === false) {

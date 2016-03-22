@@ -9,7 +9,7 @@
 
 /// <reference path="../objects/gameObject.ts" />
 /// <reference path="../objects/city.ts" />
-/// <reference path="../objects/island.ts" />
+/// <reference path="../objects/health.ts" />
 /// <reference path="../objects/captainShield.ts" />
 /// <reference path="../objects/player.ts" />
 /// <reference path="../manager/collision.ts" />

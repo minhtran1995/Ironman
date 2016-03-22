@@ -21,7 +21,7 @@ var assetData = [
     { id: "ironman2", src: "../../Assets/images/ironman2.png" },
     { id: "ironman3", src: "../../Assets/images/ironman3.png" },
     { id: "ironmanShoot", src: "../../Assets/images/ironmanShoot.png" },
-    { id: "island", src: "../../Assets/images/island.png" },
+    { id: "arcReactorFixed", src: "../../Assets/images/arcReactor-fixed.png" },
     { id: "captainShield", src: "../../Assets/images/captainShield.png" },
 ];
 function preload() {

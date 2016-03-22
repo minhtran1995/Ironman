@@ -18,11 +18,11 @@ var managers;
             endPoint.x = obj.x;
             endPoint.y = obj.y;
             if (this.distance(startPoint, endPoint) < minDistance) {
-                // check if it's an island hit
-                if (obj.name === "island") {
-                    console.log("island hit!");
+                // check if it's an health hit
+                if (obj.name === "health") {
+                    console.log("health hit!");
                 }
-                // check if it's a cloud hit
+                // check if it's a captainShield hit
                 if (obj.name === "captainShield") {
                     console.log("captainShield hit!");
                 }

@@ -3,7 +3,7 @@ module scenes {
     export class Play extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _city: objects.City;
-        private _islands: objects.Island[];
+        private _health: objects.Health[];
         private _captainShields: objects.CaptainShield[];
         private _captainShieldCount: number;
         private _islandCount: number;
@@ -25,15 +25,15 @@ module scenes {
             this._captainShieldCount = 10;
             this._islandCount = 1;
             this._captainShields = new Array<objects.CaptainShield>();
-            this._islands = new Array<objects.Island>();
+            this._health = new Array<objects.Health>();
 
             this._city = new objects.City();
             this.addChild(this._city);
 
 
-            for (var island = 0; island < this._islandCount; island++) {
-                this._islands[island] = new objects.Island();
-                this.addChild(this._islands[island]);
+            for (var h = 0; h < this._islandCount; h++) {
+                this._health[h] = new objects.Health();
+                this.addChild(this._health[h]);
             }
 
 
@@ -57,9 +57,9 @@ module scenes {
         public update(): void {
             this._city.update();
 
-            this._islands.forEach(island => {
-                island.update();
-                this._collision.check(island);
+            this._health.forEach(h => {
+                h.update();
+                this._collision.check(h);
             });
 
 

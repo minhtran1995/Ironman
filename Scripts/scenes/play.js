@@ -18,12 +18,12 @@ var scenes;
             this._captainShieldCount = 10;
             this._islandCount = 1;
             this._captainShields = new Array();
-            this._islands = new Array();
+            this._health = new Array();
             this._city = new objects.City();
             this.addChild(this._city);
-            for (var island = 0; island < this._islandCount; island++) {
-                this._islands[island] = new objects.Island();
-                this.addChild(this._islands[island]);
+            for (var h = 0; h < this._islandCount; h++) {
+                this._health[h] = new objects.Health();
+                this.addChild(this._health[h]);
             }
             this._player = new objects.Player();
             this.addChild(this._player);
@@ -39,9 +39,9 @@ var scenes;
         Play.prototype.update = function () {
             var _this = this;
             this._city.update();
-            this._islands.forEach(function (island) {
-                island.update();
-                _this._collision.check(island);
+            this._health.forEach(function (h) {
+                h.update();
+                _this._collision.check(h);
             });
             this._player.update();
             /*

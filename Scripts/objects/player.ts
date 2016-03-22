@@ -48,6 +48,7 @@ module objects {
             }
 
             window.onmousedown = function() {
+                console.log("Shoot");
                 Player.flag = true;
             };
 

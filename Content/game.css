@@ -1,0 +1,16 @@
+﻿body {
+    background-color: black;
+}
+
+canvas {
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;    
+    background-color: whitesmoke;
+}
+
+.game {
+    
+    width: 1000px;
+    margin: 1% auto 1% auto;
+}

@@ -9,7 +9,7 @@ var objects;
         __extends(GameObject, _super);
         function GameObject(bitmapString) {
             _super.call(this, assets.getResult(bitmapString));
-            this._speed = new createjs.Point(0, 0);
+            this.speed = new createjs.Point(0, 0);
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
@@ -19,18 +19,18 @@ var objects;
             this._leftBound = -this.width;
             this._rightBound = config.Screen.WIDTH + this.width;
         }
-        GameObject.prototype._reset = function (value) {
+        GameObject.prototype.reset = function (value) {
             this.x = value;
         };
         GameObject.prototype._checkBound = function (value) {
             var resetVal = 0;
             if (this.x >= value) {
-                this._reset(resetVal);
+                this.reset(resetVal);
             }
         };
         GameObject.prototype.update = function () {
             var boundVal = 0;
-            this.x += this._speed.y;
+            this.x -= this.speed.y;
             this._checkBound(boundVal);
         };
         GameObject.prototype.setImage = function (name) {

@@ -1,6 +1,6 @@
 module objects {
     export class GameObject extends createjs.Bitmap {
-        protected _speed: createjs.Point;
+        public speed: createjs.Point;
         public width: number;
         public height: number;
 
@@ -16,7 +16,7 @@ module objects {
         constructor(bitmapString: String) {
             super(assets.getResult(bitmapString));
 
-            this._speed = new createjs.Point(0, 0);
+            this.speed = new createjs.Point(0, 0);
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
@@ -29,23 +29,25 @@ module objects {
             this._rightBound = config.Screen.WIDTH + this.width;
         }
 
-        protected _reset(value: number): void {
+        protected reset(value: number): void {
             this.x = value;
         }
 
         protected _checkBound(value: number): void {
             var resetVal = 0;
             if (this.x >= value) {
-                this._reset(resetVal);
+                this.reset(resetVal);
             }
         }
 
         public update(): void {
             var boundVal = 0;
 
-            this.x += this._speed.y;
+            this.x -= this.speed.y;
             this._checkBound(boundVal);
         }
+        
+        
         
         public setImage(name:string):void{
             this.image = assets.getResult(name);

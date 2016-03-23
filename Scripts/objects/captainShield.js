@@ -9,24 +9,24 @@ var objects;
         __extends(CaptainShield, _super);
         function CaptainShield() {
             _super.call(this, "captainShield");
-            this._reset(this._rightBound);
+            this.reset(this._rightBound);
             this.name = "captainShield";
         }
-        CaptainShield.prototype._reset = function (value) {
-            this._speed.x = Math.round((Math.random() * 5) + 5);
-            this._speed.y = Math.round((Math.random() * 6) - 3);
+        CaptainShield.prototype.reset = function (value) {
+            this.speed.x = Math.round((Math.random() * 5) + 3);
+            this.speed.y = Math.round((Math.random() * 6) - 3);
             this.x = value;
             this.y = Math.round((Math.random() * this._bottomBound) + this._topBound);
         };
         CaptainShield.prototype._checkBound = function (value) {
             if (this.x <= value) {
-                this._reset(this._rightBound);
+                this.reset(this._rightBound);
             }
         };
         CaptainShield.prototype.update = function () {
-            this.y -= this._speed.y;
-            this.x -= this._speed.x;
-            this.rotation -= 7;
+            this.y -= this.speed.y;
+            this.x -= this.speed.x;
+            this.rotation -= Math.round((Math.random() * 3) + 7);
             this._checkBound(this._leftBound);
         };
         return CaptainShield;

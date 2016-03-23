@@ -9,11 +9,11 @@ var objects;
         __extends(Health, _super);
         function Health() {
             _super.call(this, "arcReactorFixed");
-            this._speed.x = 2;
-            this._reset(this._rightBound);
+            this.speed.x = 2;
+            this.reset(this._rightBound);
             this.name = "health";
         }
-        Health.prototype._reset = function (value) {
+        Health.prototype.reset = function (value) {
             this.x = value;
             this.y = Math.floor(Math.random() * this._bottomBound + this._topBound);
             this.image = assets.getResult("arcReactorFixed");
@@ -21,12 +21,13 @@ var objects;
         Health.prototype._checkBound = function (value) {
             //check if the top of island is top of scene
             if (this.x <= value) {
-                this._reset(this._rightBound);
+                this.reset(this._rightBound);
             }
         };
         Health.prototype.update = function () {
-            this.x -= this._speed.x;
-            this._checkBound(this._leftBound);
+            this.x -= this.speed.x;
+            this._checkBound((-config.Screen.WIDTH) * 2);
+            //console.log((-config.Screen.WIDTH)*2)       
         };
         return Health;
     })(objects.GameObject);

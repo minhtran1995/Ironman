@@ -3,13 +3,13 @@ module objects {
 
         constructor() {
             super("captainShield");
-            this._reset(this._rightBound);
+            this.reset(this._rightBound);
             this.name = "captainShield";
         }
 
-        protected _reset(value: number): void {
-            this._speed.x = Math.round((Math.random() * 5) + 5)
-            this._speed.y = Math.round((Math.random() * 6) - 3);
+        protected reset(value: number): void {
+            this.speed.x = Math.round((Math.random() * 5) + 3);
+            this.speed.y = Math.round((Math.random() * 6) - 3);
 
             this.x = value;
             this.y = Math.round((Math.random() * this._bottomBound) + this._topBound);
@@ -19,15 +19,15 @@ module objects {
         protected _checkBound(value: number): void {
 
             if (this.x <= value) {
-                this._reset(this._rightBound);
+                this.reset(this._rightBound);
             }
         }
 
         public update(): void {
-            this.y -= this._speed.y;
-            this.x -= this._speed.x;
+            this.y -= this.speed.y;
+            this.x -= this.speed.x;
 
-            this.rotation -= 7;
+            this.rotation -= Math.round((Math.random() * 3) + 7 );
             this._checkBound(this._leftBound);
         }
     }

@@ -9,6 +9,7 @@ var objects;
         __extends(Player, _super);
         function Player() {
             _super.call(this, assets.getResult("ironman"));
+            this.y = stage.mouseY;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
@@ -19,6 +20,8 @@ var objects;
             Player.flag = false;
             this.hitHealth = false;
             this.hitShield = false;
+            this.isShooting = false;
+            this.isDead = false;
         }
         Player.prototype._checkBounds = function () {
             if (this.y < this._topBounds) {
@@ -30,7 +33,6 @@ var objects;
         };
         Player.prototype.update = function () {
             this.y = stage.mouseY;
-            this._checkBounds();
             window.onmouseup = function () {
                 Player.flag = false;
             };
@@ -38,23 +40,31 @@ var objects;
                 console.log("Shoot");
                 Player.flag = true;
             };
-            if (this.hitHealth === true) {
-                this.image = this.shuffleImages("health");
+            if (this.isDead) {
+                this.y = this._bottomBounds - this.height;
+                this.image = this.shuffleImages("dead");
             }
             else {
-                if (this.hitShield === true) {
-                    this.image = this.shuffleImages("hit");
+                if (this.hitHealth) {
+                    this.image = this.shuffleImages("health");
                 }
                 else {
-                    if (Player.flag === false) {
-                        this.image = this.shuffleImages("");
+                    if (this.hitShield) {
+                        this.image = this.shuffleImages("hit");
                     }
                     else {
-                        this.image = this.shuffleImages("shoot");
+                        if (!Player.flag) {
+                            this.image = this.shuffleImages("");
+                            this.isShooting = false;
+                        }
+                        else {
+                            this.image = this.shuffleImages("shoot");
+                            this.isShooting = true;
+                        }
                     }
                 }
             }
-            //console.log(this.hitShield+"shield");
+            this._checkBounds();
         };
         Player.prototype.shuffleImages = function (val) {
             var obj = new Array();
@@ -67,7 +77,13 @@ var objects;
             obj[5] = assets.getResult("healed1");
             obj[6] = assets.getResult("healed2");
             obj[7] = assets.getResult("healed3");
+            //hit animation
             obj[8] = assets.getResult("ironmanHit");
+            obj[9] = assets.getResult("ironmanHit1");
+            obj[10] = assets.getResult("ironmanHit2");
+            obj[11] = assets.getResult("ironmanHit3");
+            //die
+            obj[12] = assets.getResult("dead");
             var rand = Math.round(Math.random() * 2);
             if (val === "") {
                 return obj[rand];
@@ -80,7 +96,11 @@ var objects;
                 return obj[rand];
             }
             else if (val === "hit") {
-                return obj[8];
+                rand = Math.round(Math.random() * 3) + 8;
+                return obj[rand];
+            }
+            else if (val === "dead") {
+                return obj[12];
             }
         };
         return Player;

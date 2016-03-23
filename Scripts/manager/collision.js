@@ -1,9 +1,10 @@
 var managers;
 (function (managers) {
     var Collision = (function () {
-        function Collision(player) {
+        function Collision(player, playScene) {
             this._player = player;
             Collision._counter = 0;
+            this.playScn = playScene;
         }
         Collision.prototype.distance = function (startPoint, endPoint) {
             return Math.sqrt(Math.pow(endPoint.x - startPoint.x, 2) + Math.pow(endPoint.y - startPoint.y, 2));
@@ -23,9 +24,20 @@ var managers;
                 if (obj.name === "health") {
                     this._player.hitHealth = true;
                     obj.setImage("blank");
+                    this.playScn.point += 1;
+                    this.playScn.healthIMG.rotation += 4;
+                    if (this.playScn.health < 100) {
+                        this.playScn.health += 0.5;
+                    }
+                    if (this.playScn.health > 100) {
+                        this.playScn.health = 100;
+                    }
                 }
                 else if (obj.name === "captainShield") {
                     this._player.hitShield = true;
+                    this.playScn.point -= 2;
+                    this.playScn.healthIMG.rotation -= 2;
+                    this.playScn.health -= 0.1;
                 }
             }
             else {
@@ -39,7 +51,7 @@ var managers;
             }
             Collision._counter++;
         };
-        Collision.prototype.check1 = function (obj1, obj2) {
+        Collision.prototype.bulletCollision = function (obj1, obj2) {
             var startPoint = new createjs.Point();
             var endPoint = new createjs.Point();
             var obj1HalfWidth = obj1.width * 0.5;
@@ -50,6 +62,10 @@ var managers;
             endPoint.x = obj2.x;
             endPoint.y = obj2.y;
             if (this.distance(startPoint, endPoint) < minDistance) {
+                //console.log("hit");
+                obj2.speed.y = Math.round((Math.random() * 30) - 15);
+                obj2.speed.x += 2;
+                this.playScn.point += 10;
             }
             else {
             }

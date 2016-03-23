@@ -9,22 +9,22 @@ var objects;
         __extends(City, _super);
         function City() {
             _super.call(this, "night");
-            this._speed.x = 3;
-            this._reset(0);
+            this.speed.x = 3;
+            this.reset(0);
             this.regX = 0;
             this.regY = 0;
         }
-        City.prototype._reset = function (value) {
+        City.prototype.reset = function (value) {
             this.x = value;
         };
         City.prototype._checkBound = function (value) {
             if (this.x <= value) {
-                this._reset(0);
+                this.reset(0);
             }
         };
         City.prototype.update = function () {
             //console.log(this.x+" "+ this.y)            
-            this.x -= this._speed.x;
+            this.x -= this.speed.x;
             this._checkBound(-3800);
         };
         return City;

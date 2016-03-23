@@ -6,11 +6,22 @@ module scenes {
         private _health: objects.Health[];
         private _captainShields: objects.CaptainShield[];
         private _captainShieldCount: number;
-        private _islandCount: number;
+        private _healthCount: number;
+
+        private _bullet: objects.Bullet;
 
         private _player: objects.Player;
 
         private _collision: managers.Collision;
+
+        private _score: objects.Label;
+        public point: number;
+
+        private _healthLabel: objects.Label;
+        public healthIMG: createjs.Bitmap;
+        public health: number;
+
+        private _deadLabel: objects.Label;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -22,8 +33,8 @@ module scenes {
         
         // Start Method
         public start(): void {
-            this._captainShieldCount = 7;
-            this._islandCount = 1;
+            this._captainShieldCount = 10;
+            this._healthCount = 1;
             this._captainShields = new Array<objects.CaptainShield>();
             this._health = new Array<objects.Health>();
 
@@ -31,14 +42,17 @@ module scenes {
             this.addChild(this._city);
 
 
-            for (var h = 0; h < this._islandCount; h++) {
+            for (var h = 0; h < this._healthCount; h++) {
                 this._health[h] = new objects.Health();
                 this.addChild(this._health[h]);
             }
 
 
 
+
             this._player = new objects.Player();
+            this._bullet = new objects.Bullet(this._player);
+            this.addChild(this._bullet);
             this.addChild(this._player);
 
             for (var shield = 0; shield < this._captainShieldCount; shield++) {
@@ -47,7 +61,33 @@ module scenes {
             }
 
 
-            this._collision = new managers.Collision(this._player);
+            this._collision = new managers.Collision(this._player, this);
+
+            this.point = 0;
+            this._score = new objects.Label("Score: ", "30px Orbitron",
+                "#adffff",
+                10, 0, false);
+            this.addChild(this._score);
+
+
+            this.health = 100;
+            this._healthLabel = new objects.Label("%", "35px Orbitron",
+                "#adffff",
+                config.Screen.WIDTH - 230, 0, false);
+            this.addChild(this._healthLabel);
+
+            this._deadLabel = new objects.Label("You are Dead !", "Bold 50px Orbitron",
+                "#ff1a1a",
+                config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
+            this._deadLabel.visible = false;
+            this.addChild(this._deadLabel);
+
+            this.healthIMG = new createjs.Bitmap(assets.getResult("health"));
+            this.healthIMG.x = config.Screen.WIDTH - this.healthIMG.getBounds().width * 0.5;
+            this.healthIMG.y = this.healthIMG.getBounds().height * 0.5;
+            this.healthIMG.regX = this.healthIMG.getBounds().width * 0.5;
+            this.healthIMG.regY = this.healthIMG.getBounds().height * 0.5;
+            this.addChild(this.healthIMG);
             
             // add this scene to the global stage container
             stage.addChild(this);
@@ -57,15 +97,23 @@ module scenes {
         public update(): void {
             this._city.update();
 
+            if (this._player.isShooting) {
+                this._bullet.update();
+            }
+            else {
+                this._bullet.reset(-this._bullet.width);
+            }
+
 
 
 
             this._player.update();
 
-           
+
             this._captainShields.forEach(shield => {
                 shield.update();
                 this._collision.check(shield);
+                this._collision.bulletCollision(this._bullet, shield);
             });
 
 
@@ -75,7 +123,19 @@ module scenes {
             });
 
 
+            this._score.text = "Score: " + this.point.toFixed(2);
+            this.point = this.point + 0.01;
 
+            this._healthLabel.text = this.health.toFixed(2) + " %";
+
+
+            if (this.health <= 0) {
+                this.health = 0;
+                this._player.isDead = true;
+                this._bullet.reset(-this._bullet.width);
+                this._deadLabel.visible = true;
+                //change scene soon
+            }
 
         }
         

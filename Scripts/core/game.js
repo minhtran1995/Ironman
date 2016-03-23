@@ -16,6 +16,7 @@ var assetData = [
     { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
     { id: "BackButton", src: "../../Assets/images/BackButton.png" },
     { id: "night", src: "../../Assets/images/night.png" },
+    { id: "bullet", src: "../../Assets/images/bullet.png" },
     //fly effect
     { id: "ironman", src: "../../Assets/images/ironman.png" },
     { id: "ironman1", src: "../../Assets/images/ironman1.png" },
@@ -24,12 +25,18 @@ var assetData = [
     { id: "ironmanShoot", src: "../../Assets/images/ironmanShoot.png" },
     { id: "arcReactorFixed", src: "../../Assets/images/arcReactor-fixed.png" },
     { id: "captainShield", src: "../../Assets/images/captainShield.png" },
+    //hit effect
     { id: "ironmanHit", src: "../../Assets/images/getHit.png" },
+    { id: "ironmanHit1", src: "../../Assets/images/getHit1.png" },
+    { id: "ironmanHit2", src: "../../Assets/images/getHit2.png" },
+    { id: "ironmanHit3", src: "../../Assets/images/getHit3.png" },
+    { id: "dead", src: "../../Assets/images/dead.png" },
     //healing effect
     { id: "healed", src: "../../Assets/images/ironmanHealed.png" },
     { id: "healed1", src: "../../Assets/images/ironmanHealed1.png" },
     { id: "healed2", src: "../../Assets/images/ironmanHealed2.png" },
     { id: "healed3", src: "../../Assets/images/ironmanHealed3.png" },
+    { id: "health", src: "../../Assets/images/health-fixed.png" },
     { id: "blank", src: "../../Assets/images/blank.png" },
 ];
 function preload() {

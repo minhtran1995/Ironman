@@ -4,16 +4,21 @@ module managers {
 
         private static _counter: number;
 
-        constructor(player: objects.Player) {
+        private playScn: scenes.Play;
+
+
+
+        constructor(player: objects.Player, playScene: scenes.Play) {
             this._player = player;
             Collision._counter = 0;
+            this.playScn = playScene;
         }
 
         public distance(startPoint: createjs.Point, endPoint: createjs.Point): number {
             return Math.sqrt(Math.pow(endPoint.x - startPoint.x, 2) + Math.pow(endPoint.y - startPoint.y, 2));
         }
 
-        public check(obj: objects.GameObject):void {
+        public check(obj: objects.GameObject): void {
             var startPoint: createjs.Point = new createjs.Point();
             var endPoint: createjs.Point = new createjs.Point();
 
@@ -33,10 +38,21 @@ module managers {
                 if (obj.name === "health") {
                     this._player.hitHealth = true;
                     obj.setImage("blank");
+                    this.playScn.point += 1;
+                    this.playScn.healthIMG.rotation += 4;
+                    if (this.playScn.health < 100) {
+                        this.playScn.health += 0.5;
+                    }
+                    if (this.playScn.health > 100) {
+                        this.playScn.health = 100;
+                    }
                 }                
                 // check if it's a captainShield hit
                 else if (obj.name === "captainShield") {
                     this._player.hitShield = true;
+                    this.playScn.point -= 2;
+                    this.playScn.healthIMG.rotation -= 2;
+                    this.playScn.health -= 0.1;
                 }
             }
             else {
@@ -51,9 +67,9 @@ module managers {
 
             Collision._counter++;
         }
-        
-        
-        public check1(obj1: objects.GameObject,obj2: objects.GameObject) {
+
+
+        public bulletCollision(obj1: objects.GameObject, obj2: objects.CaptainShield) {
             var startPoint: createjs.Point = new createjs.Point();
             var endPoint: createjs.Point = new createjs.Point();
 
@@ -69,13 +85,16 @@ module managers {
             endPoint.y = obj2.y;
 
             if (this.distance(startPoint, endPoint) < minDistance) {
-                
+                //console.log("hit");
+                obj2.speed.y = Math.round((Math.random() * 30) - 15);
+                obj2.speed.x += 2;
+                this.playScn.point += 10;
             }
             else {
-               
+
             }
 
-            
+
         }
     }
 }

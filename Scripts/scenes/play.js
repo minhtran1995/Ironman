@@ -15,23 +15,40 @@ var scenes;
         // PUBLIC METHODS +++++++++++++++++++++
         // Start Method
         Play.prototype.start = function () {
-            this._captainShieldCount = 7;
-            this._islandCount = 1;
+            this._captainShieldCount = 10;
+            this._healthCount = 1;
             this._captainShields = new Array();
             this._health = new Array();
             this._city = new objects.City();
             this.addChild(this._city);
-            for (var h = 0; h < this._islandCount; h++) {
+            for (var h = 0; h < this._healthCount; h++) {
                 this._health[h] = new objects.Health();
                 this.addChild(this._health[h]);
             }
             this._player = new objects.Player();
+            this._bullet = new objects.Bullet(this._player);
+            this.addChild(this._bullet);
             this.addChild(this._player);
             for (var shield = 0; shield < this._captainShieldCount; shield++) {
                 this._captainShields[shield] = new objects.CaptainShield();
                 this.addChild(this._captainShields[shield]);
             }
-            this._collision = new managers.Collision(this._player);
+            this._collision = new managers.Collision(this._player, this);
+            this.point = 0;
+            this._score = new objects.Label("Score: ", "30px Orbitron", "#adffff", 10, 0, false);
+            this.addChild(this._score);
+            this.health = 100;
+            this._healthLabel = new objects.Label("%", "35px Orbitron", "#adffff", config.Screen.WIDTH - 230, 0, false);
+            this.addChild(this._healthLabel);
+            this._deadLabel = new objects.Label("You are Dead !", "Bold 50px Orbitron", "#ff1a1a", config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
+            this._deadLabel.visible = false;
+            this.addChild(this._deadLabel);
+            this.healthIMG = new createjs.Bitmap(assets.getResult("health"));
+            this.healthIMG.x = config.Screen.WIDTH - this.healthIMG.getBounds().width * 0.5;
+            this.healthIMG.y = this.healthIMG.getBounds().height * 0.5;
+            this.healthIMG.regX = this.healthIMG.getBounds().width * 0.5;
+            this.healthIMG.regY = this.healthIMG.getBounds().height * 0.5;
+            this.addChild(this.healthIMG);
             // add this scene to the global stage container
             stage.addChild(this);
         };
@@ -39,15 +56,31 @@ var scenes;
         Play.prototype.update = function () {
             var _this = this;
             this._city.update();
+            if (this._player.isShooting) {
+                this._bullet.update();
+            }
+            else {
+                this._bullet.reset(-this._bullet.width);
+            }
             this._player.update();
             this._captainShields.forEach(function (shield) {
                 shield.update();
                 _this._collision.check(shield);
+                _this._collision.bulletCollision(_this._bullet, shield);
             });
             this._health.forEach(function (h) {
                 h.update();
                 _this._collision.check(h);
             });
+            this._score.text = "Score: " + this.point.toFixed(2);
+            this.point = this.point + 0.01;
+            this._healthLabel.text = this.health.toFixed(2) + " %";
+            if (this.health <= 0) {
+                this.health = 0;
+                this._player.isDead = true;
+                this._bullet.reset(-this._bullet.width);
+                this._deadLabel.visible = true;
+            }
         };
         return Play;
     })(objects.Scene);

@@ -46,5 +46,9 @@ module objects {
             this.x += this._speed.y;
             this._checkBound(boundVal);
         }
+        
+        public setImage(name:string):void{
+            this.image = assets.getResult(name);
+        }
     }
 }

@@ -11,6 +11,7 @@ module objects {
         protected _reset(value: number): void {  
             this.x = value;
             this.y = Math.floor(Math.random() * this._bottomBound + this._topBound);
+            this.image = assets.getResult("arcReactorFixed");
         }
 
         protected _checkBound(value: number): void {
@@ -22,8 +23,9 @@ module objects {
 
         public update(): void {
             this.x -= this._speed.x;
-            this._checkBound(this._leftBound);
-            
+            this._checkBound(this._leftBound);            
         }
+        
+        
     }
 }

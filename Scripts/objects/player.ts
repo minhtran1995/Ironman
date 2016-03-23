@@ -9,6 +9,10 @@ module objects {
 
         private static flag: boolean;
 
+        public hitHealth: boolean;
+        public hitShield: boolean;
+
+
         constructor() {
             super(assets.getResult("ironman"));
 
@@ -23,6 +27,9 @@ module objects {
             this.x = this.regX;
 
             Player.flag = false;
+
+            this.hitHealth = false;
+            this.hitShield = false;
 
         }
 
@@ -53,12 +60,28 @@ module objects {
             };
 
 
-            if (Player.flag === false) {
-                this.image = this.shuffleImages("");
+
+
+
+            if (this.hitHealth === true) {
+                this.image = this.shuffleImages("health");
             }
             else {
-                this.image = this.shuffleImages("shoot");
+                if (this.hitShield === true) {
+                    this.image = this.shuffleImages("hit");                    
+                }
+                else {
+                    if (Player.flag === false) {
+                        this.image = this.shuffleImages("");
+                    }
+                    else {
+                        this.image = this.shuffleImages("shoot");
+                    }
+                }
             }
+            
+            //console.log(this.hitShield+"shield");
+
 
 
         }
@@ -73,7 +96,16 @@ module objects {
             obj[0] = assets.getResult("ironman1");
             obj[1] = assets.getResult("ironman2");
             obj[2] = assets.getResult("ironman3");
+
             obj[3] = assets.getResult("ironmanShoot");
+            
+            //healed animation
+            obj[4] = assets.getResult("healed");
+            obj[5] = assets.getResult("healed1");
+            obj[6] = assets.getResult("healed2");
+            obj[7] = assets.getResult("healed3");
+
+            obj[8] = assets.getResult("ironmanHit");
 
             var rand: number = Math.round(Math.random() * 2);
 
@@ -82,6 +114,13 @@ module objects {
             }
             else if (val === "shoot") {
                 return obj[3];
+            }
+            else if (val === "health") {
+                rand = Math.round(Math.random() * 3) + 4;
+                return obj[rand];
+            }
+            else if (val === "hit") {
+                return obj[8];
             }
         }
 

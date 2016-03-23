@@ -15,7 +15,7 @@ var scenes;
         // PUBLIC METHODS +++++++++++++++++++++
         // Start Method
         Play.prototype.start = function () {
-            this._captainShieldCount = 10;
+            this._captainShieldCount = 7;
             this._islandCount = 1;
             this._captainShields = new Array();
             this._health = new Array();
@@ -39,20 +39,14 @@ var scenes;
         Play.prototype.update = function () {
             var _this = this;
             this._city.update();
-            this._health.forEach(function (h) {
-                h.update();
-                _this._collision.check(h);
-            });
             this._player.update();
-            /*
-                        for (var cloud in this._clouds) {
-                            this._clouds[cloud].update();
-                            this._collision.check(this._clouds[cloud]);
-                        }
-                        */
             this._captainShields.forEach(function (shield) {
                 shield.update();
                 _this._collision.check(shield);
+            });
+            this._health.forEach(function (h) {
+                h.update();
+                _this._collision.check(h);
             });
         };
         return Play;

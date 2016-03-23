@@ -22,7 +22,7 @@ module scenes {
         
         // Start Method
         public start(): void {
-            this._captainShieldCount = 10;
+            this._captainShieldCount = 7;
             this._islandCount = 1;
             this._captainShields = new Array<objects.CaptainShield>();
             this._health = new Array<objects.Health>();
@@ -57,28 +57,24 @@ module scenes {
         public update(): void {
             this._city.update();
 
-            this._health.forEach(h => {
-                h.update();
-                this._collision.check(h);
-            });
+
 
 
             this._player.update();
 
-            /*
-                        for (var cloud in this._clouds) {
-                            this._clouds[cloud].update();                
-                            this._collision.check(this._clouds[cloud]);
-                        }
-                        */
-
+           
             this._captainShields.forEach(shield => {
                 shield.update();
                 this._collision.check(shield);
             });
 
 
-          
+            this._health.forEach(h => {
+                h.update();
+                this._collision.check(h);
+            });
+
+
 
 
         }

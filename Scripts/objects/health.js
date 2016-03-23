@@ -16,6 +16,7 @@ var objects;
         Health.prototype._reset = function (value) {
             this.x = value;
             this.y = Math.floor(Math.random() * this._bottomBound + this._topBound);
+            this.image = assets.getResult("arcReactorFixed");
         };
         Health.prototype._checkBound = function (value) {
             //check if the top of island is top of scene

@@ -33,6 +33,9 @@ var objects;
             this.x += this._speed.y;
             this._checkBound(boundVal);
         };
+        GameObject.prototype.setImage = function (name) {
+            this.image = assets.getResult(name);
+        };
         return GameObject;
     })(createjs.Bitmap);
     objects.GameObject = GameObject;

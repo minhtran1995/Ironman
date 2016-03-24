@@ -2,9 +2,10 @@
 
     // Scene Constants
     export class Scene {
-        public static MENU: number = 0;
-        public static PLAY: number = 1;
-        public static END: number = 2;
+        public static LOADING: number = 0;
+        public static MENU: number = 1;
+        public static PLAY: number = 2;
+        public static END: number = 3;
     }
     
     

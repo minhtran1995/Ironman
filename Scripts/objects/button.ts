@@ -9,8 +9,8 @@
             this.x = x;
             this.y = y;
 
-            this.width = 150;
-            this.height = 50;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
 
             if (centered) {
                 this.regX = this.width * 0.5;

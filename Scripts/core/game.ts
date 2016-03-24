@@ -10,6 +10,7 @@ var currentScene: objects.Scene;
 var scene: number;
 
 // Game Scenes
+var loading: scenes.Loading;
 var menu: scenes.Menu;
 var play: scenes.Play;
 var end: scenes.End;
@@ -21,6 +22,7 @@ var assetData:objects.Asset[] = [
     {id: "BackButton", src:"../../Assets/images/BackButton.png"},
     {id: "night", src:"../../Assets/images/night.png"},
     {id: "bullet", src:"../../Assets/images/bullet.png"},
+    {id: "menuBG", src:"../../Assets/images/menuBG-fixed.jpg"},
     
     //fly effect
     {id: "ironman", src:"../../Assets/images/ironman.png"},
@@ -48,12 +50,16 @@ var assetData:objects.Asset[] = [
     
     
     {id: "blank", src:"../../Assets/images/blank.png"},
+    
 ];
 
 function preload() {
+    
+    scene = config.Scene.MENU;
+    
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
-    assets.on("complete", init, this);
+    assets.on("complete", changeScene, this);
     assets.loadManifest(assetData);
 }
 
@@ -77,8 +83,9 @@ function init(): void {
     setupStats(); 
     
     // set initial scene
-    scene = config.Scene.MENU;
+    scene = config.Scene.LOADING;
     changeScene();
+    preload();
 }
 
 // Main Game Loop function that handles what happens each "tick" or frame
@@ -111,6 +118,13 @@ function changeScene(): void {
     
     // Launch various scenes
     switch (scene) {
+        case config.Scene.LOADING:
+            // show the loading scene
+            stage.removeAllChildren();
+            loading = new scenes.Loading();
+            currentScene = loading;
+            console.log("Starting loading Scene");
+            break;
         case config.Scene.MENU:
             // show the MENU scene
             stage.removeAllChildren();
@@ -137,4 +151,4 @@ function changeScene(): void {
     console.log(currentScene.numChildren);
 }
 
-window.onload = preload;
+window.onload = init;

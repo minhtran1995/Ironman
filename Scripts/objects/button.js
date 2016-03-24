@@ -12,8 +12,8 @@ var objects;
             _super.call(this, assets.getResult(pathString));
             this.x = x;
             this.y = y;
-            this.width = 150;
-            this.height = 50;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
             if (centered) {
                 this.regX = this.width * 0.5;
                 this.regY = this.height * 0.5;

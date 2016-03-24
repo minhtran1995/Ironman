@@ -4,9 +4,10 @@ var config;
     var Scene = (function () {
         function Scene() {
         }
-        Scene.MENU = 0;
-        Scene.PLAY = 1;
-        Scene.END = 2;
+        Scene.LOADING = 0;
+        Scene.MENU = 1;
+        Scene.PLAY = 2;
+        Scene.END = 3;
         return Scene;
     })();
     config.Scene = Scene;

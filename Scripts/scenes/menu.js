@@ -18,7 +18,7 @@ var scenes;
             this._setupBackground("menuBG");
             this._fadeIn(500);
             // add the Start button to the MENU scene
-            this._startButton = new objects.Button("StartButton", config.Screen.CENTER_X, config.Screen.CENTER_Y + 130, true);
+            this._startButton = new objects.Button("StartButton", config.Screen.CENTER_X, config.Screen.CENTER_Y + 260, true);
             this.addChild(this._startButton);
             // Start Button event listener
             this._startButton.on("click", this._startButtonClick, this);
@@ -32,8 +32,11 @@ var scenes;
         // LEFT_CAVE Button click event handler
         Menu.prototype._startButtonClick = function (event) {
             // Switch to the LEFT_CAVE Scene
-            scene = config.Scene.PLAY;
-            changeScene();
+            this._fadeOut(500, function () {
+                // Switch to the menu Scene
+                scene = config.Scene.INSTRUCTION;
+                changeScene();
+            });
         };
         return Menu;
     })(objects.Scene);

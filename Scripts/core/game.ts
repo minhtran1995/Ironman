@@ -12,51 +12,54 @@ var scene: number;
 // Game Scenes
 var loading: scenes.Loading;
 var menu: scenes.Menu;
+var instruction: scenes.Instruction;
 var play: scenes.Play;
 var end: scenes.End;
 
-var assetData:objects.Asset[] = [
+var assetData: objects.Asset[] = [
     // Add your Assets here
-    {id: "StartButton", src:"../../Assets/images/StartButton.png"},
-    {id: "RestartButton", src:"../../Assets/images/RestartButton.png"},
-    {id: "BackButton", src:"../../Assets/images/BackButton.png"},
-    {id: "night", src:"../../Assets/images/night.png"},
-    {id: "bullet", src:"../../Assets/images/bullet.png"},
-    {id: "menuBG", src:"../../Assets/images/menuBG-fixed.jpg"},
+    { id: "StartButton", src: "../../Assets/images/StartButton.png" },
+    { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
+    { id: "BackButton", src: "../../Assets/images/BackButton.png" },
+    { id: "night", src: "../../Assets/images/night.png" },
+    { id: "bullet", src: "../../Assets/images/bullet.png" },
+    { id: "menuBG", src: "../../Assets/images/menuBG-fixed.jpg" },
+    { id: "end", src: "../../Assets/images/End-fixed.jpg" },
+    { id: "instruction", src: "../../Assets/images/instruction.jpg" },
     
     //fly effect
-    {id: "ironman", src:"../../Assets/images/ironman.png"},
-    {id: "ironman1", src:"../../Assets/images/ironman1.png"},
-    {id: "ironman2", src:"../../Assets/images/ironman2.png"},
-    {id: "ironman3", src:"../../Assets/images/ironman3.png"},
-    
-    {id: "ironmanShoot", src:"../../Assets/images/ironmanShoot.png"},
-    {id: "arcReactorFixed", src:"../../Assets/images/arcReactor-fixed.png"},
-    {id: "captainShield", src:"../../Assets/images/captainShield.png"},
+    { id: "ironman", src: "../../Assets/images/ironman.png" },
+    { id: "ironman1", src: "../../Assets/images/ironman1.png" },
+    { id: "ironman2", src: "../../Assets/images/ironman2.png" },
+    { id: "ironman3", src: "../../Assets/images/ironman3.png" },
+
+    { id: "ironmanShoot", src: "../../Assets/images/ironmanShoot.png" },
+    { id: "arcReactorFixed", src: "../../Assets/images/arcReactor-fixed.png" },
+    { id: "captainShield", src: "../../Assets/images/captainShield.png" },
     
     //hit effect
-    {id: "ironmanHit", src:"../../Assets/images/getHit.png"},
-    {id: "ironmanHit1", src:"../../Assets/images/getHit1.png"},
-    {id: "ironmanHit2", src:"../../Assets/images/getHit2.png"},
-    {id: "ironmanHit3", src:"../../Assets/images/getHit3.png"},
-    {id: "dead", src:"../../Assets/images/dead.png"},
+    { id: "ironmanHit", src: "../../Assets/images/getHit.png" },
+    { id: "ironmanHit1", src: "../../Assets/images/getHit1.png" },
+    { id: "ironmanHit2", src: "../../Assets/images/getHit2.png" },
+    { id: "ironmanHit3", src: "../../Assets/images/getHit3.png" },
+    { id: "dead", src: "../../Assets/images/dead.png" },
     
     //healing effect
-    {id: "healed", src:"../../Assets/images/ironmanHealed.png"},
-    {id: "healed1", src:"../../Assets/images/ironmanHealed1.png"},
-    {id: "healed2", src:"../../Assets/images/ironmanHealed2.png"},
-    {id: "healed3", src:"../../Assets/images/ironmanHealed3.png"},
-    {id: "health", src:"../../Assets/images/health-fixed.png"},
-    
-    
-    {id: "blank", src:"../../Assets/images/blank.png"},
-    
+    { id: "healed", src: "../../Assets/images/ironmanHealed.png" },
+    { id: "healed1", src: "../../Assets/images/ironmanHealed1.png" },
+    { id: "healed2", src: "../../Assets/images/ironmanHealed2.png" },
+    { id: "healed3", src: "../../Assets/images/ironmanHealed3.png" },
+    { id: "health", src: "../../Assets/images/health-fixed.png" },
+
+
+    { id: "blank", src: "../../Assets/images/blank.png" },
+
 ];
 
 function preload() {
-    
+
     scene = config.Scene.MENU;
-    
+
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
     assets.on("complete", changeScene, this);
@@ -131,6 +134,13 @@ function changeScene(): void {
             menu = new scenes.Menu();
             currentScene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.INSTRUCTION:
+            // show the MENU scene
+            stage.removeAllChildren();
+            instruction = new scenes.Instruction();
+            currentScene = instruction;
+            console.log("Starting instruction Scene");
             break;
         case config.Scene.PLAY:
             // show the PLAY scene

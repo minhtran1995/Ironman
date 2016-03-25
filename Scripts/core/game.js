@@ -9,6 +9,7 @@ var scene;
 // Game Scenes
 var loading;
 var menu;
+var instruction;
 var play;
 var end;
 var assetData = [
@@ -19,6 +20,8 @@ var assetData = [
     { id: "night", src: "../../Assets/images/night.png" },
     { id: "bullet", src: "../../Assets/images/bullet.png" },
     { id: "menuBG", src: "../../Assets/images/menuBG-fixed.jpg" },
+    { id: "end", src: "../../Assets/images/End-fixed.jpg" },
+    { id: "instruction", src: "../../Assets/images/instruction.jpg" },
     //fly effect
     { id: "ironman", src: "../../Assets/images/ironman.png" },
     { id: "ironman1", src: "../../Assets/images/ironman1.png" },
@@ -103,6 +106,13 @@ function changeScene() {
             menu = new scenes.Menu();
             currentScene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.INSTRUCTION:
+            // show the MENU scene
+            stage.removeAllChildren();
+            instruction = new scenes.Instruction();
+            currentScene = instruction;
+            console.log("Starting instruction Scene");
             break;
         case config.Scene.PLAY:
             // show the PLAY scene

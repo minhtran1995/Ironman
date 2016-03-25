@@ -24,7 +24,7 @@ module scenes {
             this._startButton = new objects.Button(
                 "StartButton",
                 config.Screen.CENTER_X,
-                config.Screen.CENTER_Y + 130, true);
+                config.Screen.CENTER_Y +260, true);
             this.addChild(this._startButton);
             
             // Start Button event listener
@@ -46,8 +46,13 @@ module scenes {
         // LEFT_CAVE Button click event handler
         private _startButtonClick(event: createjs.MouseEvent) {
             // Switch to the LEFT_CAVE Scene
-            scene = config.Scene.PLAY;
-            changeScene();
+            
+            this._fadeOut(500, () => {
+                // Switch to the menu Scene
+                scene = config.Scene.INSTRUCTION;
+                changeScene();
+            });
+            
         }
 
     }

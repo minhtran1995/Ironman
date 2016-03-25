@@ -15,12 +15,14 @@ var scenes;
         // PUBLIC METHODS +++++++++++++++++++++
         // Start Method
         Play.prototype.start = function () {
+            Play._counter = 0;
             this._captainShieldCount = 10;
             this._healthCount = 1;
             this._captainShields = new Array();
             this._health = new Array();
             this._city = new objects.City();
             this.addChild(this._city);
+            this._setupBackground('blank');
             for (var h = 0; h < this._healthCount; h++) {
                 this._health[h] = new objects.Health();
                 this.addChild(this._health[h]);
@@ -73,13 +75,27 @@ var scenes;
                 _this._collision.check(h);
             });
             this._score.text = "Score: " + this.point.toFixed(2);
-            this.point = this.point + 0.01;
+            if (!this._player.isDead) {
+                this.point = this.point + 0.01;
+            }
             this._healthLabel.text = this.health.toFixed(2) + " %";
+            if (this.point < 0) {
+                this.point = 0;
+            }
             if (this.health <= 0) {
                 this.health = 0;
                 this._player.isDead = true;
                 this._bullet.reset(-this._bullet.width);
                 this._deadLabel.visible = true;
+                if (Play._counter === 240) {
+                    this._fadeOut(500, function () {
+                        // Switch to the final Scene
+                        scene = config.Scene.END;
+                        changeScene();
+                    });
+                    Play._counter = 0;
+                }
+                Play._counter++;
             }
         };
         return Play;

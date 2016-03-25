@@ -4,8 +4,9 @@
     export class Scene {
         public static LOADING: number = 0;
         public static MENU: number = 1;
-        public static PLAY: number = 2;
-        public static END: number = 3;
+        public static INSTRUCTION: number = 2;
+        public static PLAY: number = 3;
+        public static END: number = 4;
     }
     
     

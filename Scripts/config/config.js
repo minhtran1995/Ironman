@@ -6,8 +6,9 @@ var config;
         }
         Scene.LOADING = 0;
         Scene.MENU = 1;
-        Scene.PLAY = 2;
-        Scene.END = 3;
+        Scene.INSTRUCTION = 2;
+        Scene.PLAY = 3;
+        Scene.END = 4;
         return Scene;
     })();
     config.Scene = Scene;

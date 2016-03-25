@@ -4,6 +4,8 @@ var managers;
         function Collision(player, playScene) {
             this._player = player;
             Collision._counter = 0;
+            Collision._healCounter = 0;
+            Collision._shockCounter = 0;
             this.playScn = playScene;
         }
         Collision.prototype.distance = function (startPoint, endPoint) {
@@ -33,12 +35,23 @@ var managers;
                         if (this.playScn.health > 100) {
                             this.playScn.health = 100;
                         }
+                        if (Collision._healCounter % 60 === 0) {
+                            createjs.Sound.play("heal");
+                            Collision._healCounter = 0;
+                        }
+                        //console.log(Collision._healCounter);
+                        Collision._healCounter++;
                     }
                     else if (obj.name === "captainShield") {
                         this._player.hitShield = true;
                         this.playScn.point -= 2;
                         this.playScn.healthIMG.rotation -= 2;
                         this.playScn.health -= 0.1;
+                        if (Collision._shockCounter % 60 === 0) {
+                            createjs.Sound.play("shocked").volume = 0.5;
+                            Collision._shockCounter = 0;
+                        }
+                        Collision._shockCounter++;
                     }
                 }
                 else {
@@ -69,6 +82,7 @@ var managers;
                     obj2.speed.y = Math.round((Math.random() * 30) - 15);
                     obj2.speed.x += 2;
                     this.playScn.point += 10;
+                    createjs.Sound.play("ricochet");
                 }
                 else {
                 }

@@ -13,14 +13,14 @@ var objects;
             this._player = player;
             this.speed.x = 180;
             this.y = this._player.y;
-            this.reset(this._leftBound);
+            this.reset(this._leftBound + 500);
         }
         Bullet.prototype.reset = function (value) {
             this.y = this._player.y;
             this.x = value;
         };
         Bullet.prototype._checkBound = function (value) {
-            var resetVal = this._leftBound;
+            var resetVal = this._leftBound + 500;
             if (this.x >= value) {
                 this.reset(resetVal);
             }

@@ -3,15 +3,20 @@ module managers {
         private _player: objects.Player;
 
         private static _counter: number;
-
+        private static _healCounter: number;
+        private static _shockCounter: number;
         private playScn: scenes.Play;
+
 
 
 
         constructor(player: objects.Player, playScene: scenes.Play) {
             this._player = player;
             Collision._counter = 0;
+            Collision._healCounter = 0;
+            Collision._shockCounter = 0;
             this.playScn = playScene;
+
         }
 
         public distance(startPoint: createjs.Point, endPoint: createjs.Point): number {
@@ -47,6 +52,19 @@ module managers {
                         if (this.playScn.health > 100) {
                             this.playScn.health = 100;
                         }
+
+
+
+                        if (Collision._healCounter % 60 === 0) {
+                            createjs.Sound.play("heal");
+                            Collision._healCounter = 0;
+                        }
+
+                        //console.log(Collision._healCounter);
+                        Collision._healCounter++;
+
+
+
                     }                
                     // check if it's a captainShield hit
                     else if (obj.name === "captainShield") {
@@ -54,6 +72,14 @@ module managers {
                         this.playScn.point -= 2;
                         this.playScn.healthIMG.rotation -= 2;
                         this.playScn.health -= 0.1;
+
+
+                        if (Collision._shockCounter % 60 === 0) {
+                            createjs.Sound.play("shocked").volume = 0.5;
+                            Collision._shockCounter = 0;
+                        }
+
+                        Collision._shockCounter++;
                     }
                 }
                 else {
@@ -64,6 +90,7 @@ module managers {
                         Collision._counter = 0;
                     }
                     this._player.hitHealth = false;
+
                 }
             }
 
@@ -72,7 +99,7 @@ module managers {
         }
 
 
-        public bulletCollision(obj1: objects.GameObject, obj2: objects.CaptainShield) {
+        public bulletCollision(obj1: objects.Bullet, obj2: objects.CaptainShield) {
             var startPoint: createjs.Point = new createjs.Point();
             var endPoint: createjs.Point = new createjs.Point();
 
@@ -93,6 +120,7 @@ module managers {
                     obj2.speed.y = Math.round((Math.random() * 30) - 15);
                     obj2.speed.x += 2;
                     this.playScn.point += 10;
+                    createjs.Sound.play("ricochet");
                 }
                 else {
 

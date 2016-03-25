@@ -17,6 +17,9 @@ var scenes;
         Menu.prototype.start = function () {
             this._setupBackground("menuBG");
             this._fadeIn(500);
+            createjs.Sound.stop();
+            createjs.Sound.play("bmg").loop = -1;
+            createjs.Sound.volume = 50;
             // add the Start button to the MENU scene
             this._startButton = new objects.Button("StartButton", config.Screen.CENTER_X, config.Screen.CENTER_Y + 260, true);
             this.addChild(this._startButton);

@@ -9,7 +9,7 @@ module objects {
             this._player = player;
             this.speed.x = 180;
             this.y = this._player.y;
-            this.reset(this._leftBound);
+            this.reset(this._leftBound+500);
 
         }
 
@@ -20,7 +20,7 @@ module objects {
         }
 
         protected _checkBound(value: number): void {
-            var resetVal = this._leftBound;
+            var resetVal = this._leftBound+500;
             if (this.x >= value) {
                 this.reset(resetVal);
             }

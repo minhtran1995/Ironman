@@ -53,6 +53,14 @@ var assetData: objects.Asset[] = [
 
 
     { id: "blank", src: "../../Assets/images/blank.png" },
+    
+    //audio
+    { id: "bmg", src: "../../Assets/audio/bmg.mp3" },
+    { id: "leftClick", src: "../../Assets/audio/leftClick.mp3" },
+    { id: "shoot", src: "../../Assets/audio/shoot.mp3" },
+    { id: "heal", src: "../../Assets/audio/heal.mp3" },
+    { id: "ricochet", src: "../../Assets/audio/ricochet.mp3" },
+    { id: "shocked", src: "../../Assets/audio/shocked.mp3" },
 
 ];
 

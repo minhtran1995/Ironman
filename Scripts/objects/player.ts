@@ -52,24 +52,29 @@ module objects {
             this.y = stage.mouseY;
 
 
-
             window.onmouseup = function() {
                 Player.flag = false;
             }
 
-            window.onmousedown = function() {
-                console.log("Shoot");
-                Player.flag = true;
-
-            };
-
-
             if (this.isDead) {
-                this.y = this._bottomBounds- this.height;
+                this.y = this._bottomBounds - this.height;
                 this.image = this.shuffleImages("dead");
 
+                window.onmousedown = function() {
+                    console.log("die");
+                };
             }
             else {
+
+                window.onmousedown = function() {
+                    console.log("Shoot");
+                    Player.flag = true;
+                    createjs.Sound.play("leftClick");
+                    createjs.Sound.play("shoot").volume = 0.5;
+
+                };
+
+
 
                 if (this.hitHealth) {
                     this.image = this.shuffleImages("health");

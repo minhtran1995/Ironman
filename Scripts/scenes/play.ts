@@ -106,7 +106,7 @@ module scenes {
                 this._bullet.update();
             }
             else {
-                this._bullet.reset(-this._bullet.width);
+                this._bullet.reset(config.Screen.WIDTH+ (this._bullet.width)*5);
             }
 
 

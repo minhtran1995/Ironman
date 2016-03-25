@@ -62,7 +62,7 @@ var scenes;
                 this._bullet.update();
             }
             else {
-                this._bullet.reset(-this._bullet.width);
+                this._bullet.reset(config.Screen.WIDTH + (this._bullet.width) * 5);
             }
             this._player.update();
             this._captainShields.forEach(function (shield) {

@@ -1,3 +1,16 @@
+/*
+ ***************************************************************************************
+ * Source file name : gameObject.ts                                                    *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        * 
+ *                                                                                     *  
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
+
 module objects {
     export class GameObject extends createjs.Bitmap {
         public speed: createjs.Point;
@@ -9,7 +22,7 @@ module objects {
         protected _bottomBound: number;
         protected _topBound: number;
 
-        
+
 
 
         public name: string;
@@ -29,10 +42,12 @@ module objects {
             this._rightBound = config.Screen.WIDTH + this.width;
         }
 
+        //reset ojbect location
         protected reset(value: number): void {
             this.x = value;
         }
 
+        //check if objects are in right location
         protected _checkBound(value: number): void {
             var resetVal = 0;
             if (this.x >= value) {
@@ -40,16 +55,17 @@ module objects {
             }
         }
 
+        //update objects on scene
         public update(): void {
             var boundVal = 0;
 
             this.x -= this.speed.y;
             this._checkBound(boundVal);
         }
-        
-        
-        
-        public setImage(name:string):void{
+
+
+        //set images of current objects
+        public setImage(name: string): void {
             this.image = assets.getResult(name);
         }
     }

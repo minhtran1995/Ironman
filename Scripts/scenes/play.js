@@ -1,3 +1,16 @@
+/*
+ ***************************************************************************************
+ * Source file name : play.ts                                                          *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                    2 - Change Winning Score                                         *
+ *                                                                                     *
+ ***************************************************************************************
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -57,7 +70,9 @@ var scenes;
         // PLAY Scene updates here
         Play.prototype.update = function () {
             var _this = this;
+            //update scrolling background  heref
             this._city.update();
+            //check collision here
             if (this._player.isShooting) {
                 this._bullet.update();
             }
@@ -74,6 +89,7 @@ var scenes;
                 h.update();
                 _this._collision.check(h);
             });
+            //update lables here
             this._score.text = "Score: " + this.point.toFixed(2);
             if (!this._player.isDead) {
                 this.point = this.point + 0.01;
@@ -82,6 +98,7 @@ var scenes;
             if (this.point < 0) {
                 this.point = 0;
             }
+            //when player is dead, change to lose scene
             if (this.health <= 0) {
                 this.health = 0;
                 this._player.isDead = true;
@@ -89,8 +106,23 @@ var scenes;
                 this._deadLabel.visible = true;
                 if (Play._counter === 240) {
                     this._fadeOut(500, function () {
-                        // Switch to the final Scene
+                        // Switch to the lose Scene
                         scene = config.Scene.END;
+                        changeScene();
+                    });
+                    Play._counter = 0;
+                }
+                Play._counter++;
+            }
+            //desired score to win
+            if (this.point > 5000) {
+                window.onmousedown = function () {
+                    console.log("Mouse disabled");
+                };
+                if (Play._counter === 180) {
+                    this._fadeOut(500, function () {
+                        // Switch to the win Scene                
+                        scene = config.Scene.WIN;
                         changeScene();
                     });
                     Play._counter = 0;

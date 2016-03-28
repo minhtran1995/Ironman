@@ -1,3 +1,15 @@
+/*
+ ***************************************************************************************
+ * Source file name : menu.ts                                                          *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -34,9 +46,8 @@ var scenes;
         //EVENT HANDLERS ++++++++++++++++++++
         // LEFT_CAVE Button click event handler
         Menu.prototype._startButtonClick = function (event) {
-            // Switch to the LEFT_CAVE Scene
             this._fadeOut(500, function () {
-                // Switch to the menu Scene
+                // Switch to the instruction Scene
                 scene = config.Scene.INSTRUCTION;
                 changeScene();
             });

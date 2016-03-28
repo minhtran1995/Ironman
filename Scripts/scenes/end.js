@@ -1,9 +1,20 @@
+/*
+ ***************************************************************************************
+ * Source file name : end.ts                                                           *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-// LEFT_CAVE SCENE
 var scenes;
 (function (scenes) {
     var End = (function (_super) {
@@ -25,13 +36,12 @@ var scenes;
             // add this scene to the global stage container
             stage.addChild(this);
         };
-        // PLAY Scene updates here
+        // end Scene updates here
         End.prototype.update = function () {
         };
         //EVENT HANDLERS ++++++++++++++++++++
         // START_OVER Button click event handler
         End.prototype._restartButtonClick = function (event) {
-            // Switch to the INTRO Scene
             this._fadeOut(500, function () {
                 // Switch to the menu Scene
                 scene = config.Scene.MENU;

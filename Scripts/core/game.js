@@ -1,3 +1,15 @@
+/*
+ ***************************************************************************************
+ * Source file name : game.ts                                                          *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                    2 - Add Wining Scene                                             *
+ ***************************************************************************************
+*/
 /// <reference path = "_reference.ts" />
 // global variables
 var assets;
@@ -12,8 +24,8 @@ var menu;
 var instruction;
 var play;
 var end;
+var win;
 var assetData = [
-    // Add your Assets here
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
     { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
     { id: "BackButton", src: "../../Assets/images/BackButton.png" },
@@ -22,6 +34,7 @@ var assetData = [
     { id: "menuBG", src: "../../Assets/images/menuBG-fixed.jpg" },
     { id: "end", src: "../../Assets/images/End-fixed.jpg" },
     { id: "instruction", src: "../../Assets/images/instruction.jpg" },
+    { id: "win", src: "../../Assets/images/win.jpg" },
     //fly effect
     { id: "ironman", src: "../../Assets/images/ironman.png" },
     { id: "ironman1", src: "../../Assets/images/ironman1.png" },
@@ -51,6 +64,7 @@ var assetData = [
     { id: "ricochet", src: "../../Assets/audio/ricochet.mp3" },
     { id: "shocked", src: "../../Assets/audio/shocked.mp3" },
 ];
+//preload assets
 function preload() {
     scene = config.Scene.MENU;
     assets = new createjs.LoadQueue();
@@ -58,6 +72,7 @@ function preload() {
     assets.on("complete", changeScene, this);
     assets.loadManifest(assetData);
 }
+//init main stage
 function init() {
     // create a reference the HTML canvas Element
     canvas = document.getElementById("canvas");
@@ -74,6 +89,7 @@ function init() {
     // set initial scene
     scene = config.Scene.LOADING;
     changeScene();
+    //preload data
     preload();
 }
 // Main Game Loop function that handles what happens each "tick" or frame
@@ -135,8 +151,14 @@ function changeScene() {
             currentScene = end;
             console.log("Starting END Scene");
             break;
+        case config.Scene.WIN:
+            // show the END scene
+            stage.removeAllChildren();
+            win = new scenes.Win();
+            currentScene = win;
+            console.log("Starting win Scene");
+            break;
     }
-    console.log(currentScene.numChildren);
 }
 window.onload = init;
 //# sourceMappingURL=game.js.map

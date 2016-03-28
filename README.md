@@ -1,4 +1,5 @@
-# COMP397-W2016-MailPilotDemo Project
+# IRONMAN: CIVIL WAR 
+Web game Programing - Winter 2016
 
 [live game]
 

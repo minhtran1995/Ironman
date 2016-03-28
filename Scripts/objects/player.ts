@@ -1,3 +1,16 @@
+/*
+ ***************************************************************************************
+ * Source file name : player.ts                                                        *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        * 
+ *                                                                                     *  
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
+
 module objects {
     export class Player extends createjs.Bitmap {
 
@@ -36,6 +49,8 @@ module objects {
             this.isDead = false;
         }
 
+
+        //check if player is in the allowed range
         private _checkBounds(): void {
 
             if (this.y < this._topBounds) {
@@ -47,7 +62,7 @@ module objects {
         }
 
 
-
+        //update game objects in my scene
         public update(): void {
             this.y = stage.mouseY;
 
@@ -61,7 +76,7 @@ module objects {
                 this.image = this.shuffleImages("dead");
 
                 window.onmousedown = function() {
-                    console.log("die");
+                    console.log("Mouse disabled");
                 };
             }
             else {
@@ -95,9 +110,6 @@ module objects {
                     }
                 }
             }
-
-
-
             this._checkBounds();
 
         }
@@ -105,7 +117,7 @@ module objects {
 
 
 
-
+        //change player images - Animation
         public shuffleImages(val: string): Object {
             var obj = new Array<Object>();
 
@@ -114,7 +126,7 @@ module objects {
             obj[2] = assets.getResult("ironman3");
 
             obj[3] = assets.getResult("ironmanShoot");
-            
+
             //healed animation
             obj[4] = assets.getResult("healed");
             obj[5] = assets.getResult("healed1");
@@ -127,7 +139,7 @@ module objects {
             obj[9] = assets.getResult("ironmanHit1");
             obj[10] = assets.getResult("ironmanHit2");
             obj[11] = assets.getResult("ironmanHit3");
-            
+
             //die
             obj[12] = assets.getResult("dead");
 

@@ -1,3 +1,17 @@
+/*
+ ***************************************************************************************
+ * Source file name : play.ts                                                          *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        * 
+ *                                                                                     *  
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                    2 - Change Winning Score                                         *
+ *                                                                                     *
+ ***************************************************************************************
+*/
+
 // PLAY SCENE
 module scenes {
     export class Play extends objects.Scene {
@@ -9,30 +23,30 @@ module scenes {
         private _healthCount: number;
 
         private _bullet: objects.Bullet;
-
         private _player: objects.Player;
-
         private _collision: managers.Collision;
 
         private _score: objects.Label;
         public point: number;
-
-        private _healthLabel: objects.Label;
-        public healthIMG: createjs.Bitmap;
         public health: number;
 
+
+        public healthIMG: createjs.Bitmap;
+
+
+        private _healthLabel: objects.Label;
         private _deadLabel: objects.Label;
 
         private static _counter;
-        
+
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
             super();
 
         }
-        
+
         // PUBLIC METHODS +++++++++++++++++++++
-        
+
         // Start Method
         public start(): void {
             Play._counter = 0;
@@ -43,7 +57,7 @@ module scenes {
 
             this._city = new objects.City();
             this.addChild(this._city);
-            
+
             this._setupBackground('blank');
 
 
@@ -93,24 +107,23 @@ module scenes {
             this.healthIMG.regX = this.healthIMG.getBounds().width * 0.5;
             this.healthIMG.regY = this.healthIMG.getBounds().height * 0.5;
             this.addChild(this.healthIMG);
-            
+
             // add this scene to the global stage container
             stage.addChild(this);
         }
 
         // PLAY Scene updates here
         public update(): void {
+            //update scrolling background  heref
             this._city.update();
 
+            //check collision here
             if (this._player.isShooting) {
                 this._bullet.update();
             }
             else {
-                this._bullet.reset(config.Screen.WIDTH+ (this._bullet.width)*5);
+                this._bullet.reset(config.Screen.WIDTH + (this._bullet.width) * 5);
             }
-
-
-
 
             this._player.update();
 
@@ -128,6 +141,7 @@ module scenes {
             });
 
 
+            //update lables here
             this._score.text = "Score: " + this.point.toFixed(2);
             if (!this._player.isDead) {
                 this.point = this.point + 0.01;
@@ -138,6 +152,7 @@ module scenes {
                 this.point = 0;
             }
 
+            //when player is dead, change to lose scene
             if (this.health <= 0) {
                 this.health = 0;
                 this._player.isDead = true;
@@ -147,7 +162,7 @@ module scenes {
 
                 if (Play._counter === 240) {
                     this._fadeOut(500, () => {
-                        // Switch to the final Scene
+                        // Switch to the lose Scene
                         scene = config.Scene.END;
                         changeScene();
                     });
@@ -159,10 +174,27 @@ module scenes {
                 //console.log(Play._counter);
             }
 
+            //desired score to win
+            if (this.point > 5000) {
+                window.onmousedown = function() {
+                    console.log("Mouse disabled");
+                };
+                
+                if (Play._counter === 180) {
+                    this._fadeOut(500, () => {
+                        // Switch to the win Scene                
+                        scene = config.Scene.WIN;
+                        changeScene();
+                    });
+                    Play._counter = 0;
+                }
+                Play._counter++;
+            }
+
         }
-        
-        
+
+
         //EVENT HANDLERS ++++++++++++++++++++
-        
+
     }
 }

@@ -1,16 +1,30 @@
+/*
+ ***************************************************************************************
+ * Source file name : collision.ts                                                     *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
 var managers;
 (function (managers) {
+    //Collision class
     var Collision = (function () {
         function Collision(player, playScene) {
             this._player = player;
             Collision._counter = 0;
             Collision._healCounter = 0;
             Collision._shockCounter = 0;
-            this.playScn = playScene;
+            this._playScn = playScene;
         }
         Collision.prototype.distance = function (startPoint, endPoint) {
             return Math.sqrt(Math.pow(endPoint.x - startPoint.x, 2) + Math.pow(endPoint.y - startPoint.y, 2));
         };
+        //check collision between player and objects
         Collision.prototype.check = function (obj) {
             var startPoint = new createjs.Point();
             var endPoint = new createjs.Point();
@@ -27,13 +41,13 @@ var managers;
                     if (obj.name === "health") {
                         this._player.hitHealth = true;
                         obj.setImage("blank");
-                        this.playScn.point += 1;
-                        this.playScn.healthIMG.rotation += 4;
-                        if (this.playScn.health < 100) {
-                            this.playScn.health += 0.5;
+                        this._playScn.point += 1;
+                        this._playScn.healthIMG.rotation += 4;
+                        if (this._playScn.health < 100) {
+                            this._playScn.health += 0.5;
                         }
-                        if (this.playScn.health > 100) {
-                            this.playScn.health = 100;
+                        if (this._playScn.health > 100) {
+                            this._playScn.health = 100;
                         }
                         if (Collision._healCounter % 60 === 0) {
                             createjs.Sound.play("heal");
@@ -44,9 +58,9 @@ var managers;
                     }
                     else if (obj.name === "captainShield") {
                         this._player.hitShield = true;
-                        this.playScn.point -= 2;
-                        this.playScn.healthIMG.rotation -= 2;
-                        this.playScn.health -= 0.1;
+                        this._playScn.point -= 2;
+                        this._playScn.healthIMG.rotation -= 2;
+                        this._playScn.health -= 0.1;
                         if (Collision._shockCounter % 60 === 0) {
                             createjs.Sound.play("shocked").volume = 0.5;
                             Collision._shockCounter = 0;
@@ -66,6 +80,7 @@ var managers;
             }
             Collision._counter++;
         };
+        //check collision between bullet and objects
         Collision.prototype.bulletCollision = function (obj1, obj2) {
             var startPoint = new createjs.Point();
             var endPoint = new createjs.Point();
@@ -81,7 +96,7 @@ var managers;
                     //console.log("hit");
                     obj2.speed.y = Math.round((Math.random() * 30) - 15);
                     obj2.speed.x += 2;
-                    this.playScn.point += 10;
+                    this._playScn.point += 10;
                     createjs.Sound.play("ricochet");
                 }
                 else {

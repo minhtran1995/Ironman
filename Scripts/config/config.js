@@ -1,3 +1,15 @@
+/*
+ ***************************************************************************************
+ * Source file name : config.ts                                                        *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                    2 - Add Wining Scene                                             *
+ ***************************************************************************************
+*/
 var config;
 (function (config) {
     // Scene Constants
@@ -9,6 +21,7 @@ var config;
         Scene.INSTRUCTION = 2;
         Scene.PLAY = 3;
         Scene.END = 4;
+        Scene.WIN = 5;
         return Scene;
     })();
     config.Scene = Scene;

@@ -1,3 +1,15 @@
+/*
+ ***************************************************************************************
+ * Source file name : player.ts                                                        *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        *
+ *                                                                                     *
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                                                                                     *
+ ***************************************************************************************
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -23,6 +35,7 @@ var objects;
             this.isShooting = false;
             this.isDead = false;
         }
+        //check if player is in the allowed range
         Player.prototype._checkBounds = function () {
             if (this.y < this._topBounds) {
                 this.y = this._topBounds;
@@ -31,6 +44,7 @@ var objects;
                 this.y = this._bottomBounds;
             }
         };
+        //update game objects in my scene
         Player.prototype.update = function () {
             this.y = stage.mouseY;
             window.onmouseup = function () {
@@ -40,7 +54,7 @@ var objects;
                 this.y = this._bottomBounds - this.height;
                 this.image = this.shuffleImages("dead");
                 window.onmousedown = function () {
-                    console.log("die");
+                    console.log("Mouse disabled");
                 };
             }
             else {
@@ -71,6 +85,7 @@ var objects;
             }
             this._checkBounds();
         };
+        //change player images - Animation
         Player.prototype.shuffleImages = function (val) {
             var obj = new Array();
             obj[0] = assets.getResult("ironman1");

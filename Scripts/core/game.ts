@@ -1,4 +1,18 @@
-﻿/// <reference path = "_reference.ts" />
+﻿/*
+ ***************************************************************************************
+ * Source file name : game.ts                                                          *
+ * Author's name : Duc Minh Tran (300771859)                                           *
+ * Last Modified by : Duc Minh Tran (300771859)                                        *
+ * Last Modified date : March 27 2016                                                  *
+ * Program description : This is a webgame that use  a Side Scroller background        * 
+ *                                                                                     *  
+ * Revision History : 1 - Update Internal Documentation                                *
+ *                    2 - Add Wining Scene                                             *
+ ***************************************************************************************
+*/
+
+
+/// <reference path = "_reference.ts" />
 
 // global variables
 var assets: createjs.LoadQueue;
@@ -15,9 +29,10 @@ var menu: scenes.Menu;
 var instruction: scenes.Instruction;
 var play: scenes.Play;
 var end: scenes.End;
+var win: scenes.Win;
 
 var assetData: objects.Asset[] = [
-    // Add your Assets here
+
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
     { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
     { id: "BackButton", src: "../../Assets/images/BackButton.png" },
@@ -26,7 +41,9 @@ var assetData: objects.Asset[] = [
     { id: "menuBG", src: "../../Assets/images/menuBG-fixed.jpg" },
     { id: "end", src: "../../Assets/images/End-fixed.jpg" },
     { id: "instruction", src: "../../Assets/images/instruction.jpg" },
-    
+    { id: "win", src: "../../Assets/images/win.jpg" },
+
+
     //fly effect
     { id: "ironman", src: "../../Assets/images/ironman.png" },
     { id: "ironman1", src: "../../Assets/images/ironman1.png" },
@@ -36,14 +53,14 @@ var assetData: objects.Asset[] = [
     { id: "ironmanShoot", src: "../../Assets/images/ironmanShoot.png" },
     { id: "arcReactorFixed", src: "../../Assets/images/arcReactor-fixed.png" },
     { id: "captainShield", src: "../../Assets/images/captainShield.png" },
-    
+
     //hit effect
     { id: "ironmanHit", src: "../../Assets/images/getHit.png" },
     { id: "ironmanHit1", src: "../../Assets/images/getHit1.png" },
     { id: "ironmanHit2", src: "../../Assets/images/getHit2.png" },
     { id: "ironmanHit3", src: "../../Assets/images/getHit3.png" },
     { id: "dead", src: "../../Assets/images/dead.png" },
-    
+
     //healing effect
     { id: "healed", src: "../../Assets/images/ironmanHealed.png" },
     { id: "healed1", src: "../../Assets/images/ironmanHealed1.png" },
@@ -53,7 +70,7 @@ var assetData: objects.Asset[] = [
 
 
     { id: "blank", src: "../../Assets/images/blank.png" },
-    
+
     //audio
     { id: "bmg", src: "../../Assets/audio/bmg.mp3" },
     { id: "leftClick", src: "../../Assets/audio/leftClick.mp3" },
@@ -64,52 +81,55 @@ var assetData: objects.Asset[] = [
 
 ];
 
+
+//preload assets
 function preload() {
-
     scene = config.Scene.MENU;
-
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
     assets.on("complete", changeScene, this);
     assets.loadManifest(assetData);
 }
 
+//init main stage
 function init(): void {
     // create a reference the HTML canvas Element
     canvas = document.getElementById("canvas");
-    
+
     // create our main display list container
     stage = new createjs.Stage(canvas);
-    
+
     // Enable mouse events
     stage.enableMouseOver(20);
-    
+
     // set the framerate to 60 frames per second
     createjs.Ticker.setFPS(config.Game.FPS);
-    
+
     // create an event listener to count off frames
     createjs.Ticker.on("tick", gameLoop, this);
-    
+
     // sets up our stats counting workflow
-    setupStats(); 
-    
+    setupStats();
+
     // set initial scene
     scene = config.Scene.LOADING;
     changeScene();
+
+    //preload data
     preload();
 }
 
 // Main Game Loop function that handles what happens each "tick" or frame
 function gameLoop(event: createjs.Event): void {
     // start collecting stats for this frame
-    stats.begin(); 
-    
+    stats.begin();
+
     // calling State's update method
-    currentScene.update(); 
-    
+    currentScene.update();
+
     // redraw/refresh stage every frame
     stage.update();
-    
+
     // stop collecting stats for this frame
     stats.end();
 }
@@ -126,7 +146,7 @@ function setupStats(): void {
 
 // Finite State Machine used to change Scenes
 function changeScene(): void {
-    
+
     // Launch various scenes
     switch (scene) {
         case config.Scene.LOADING:
@@ -164,9 +184,15 @@ function changeScene(): void {
             currentScene = end;
             console.log("Starting END Scene");
             break;
+        case config.Scene.WIN:
+            // show the END scene
+            stage.removeAllChildren();
+            win = new scenes.Win();
+            currentScene = win;
+            console.log("Starting win Scene");
+            break;
     }
 
-    console.log(currentScene.numChildren);
 }
 
 window.onload = init;
